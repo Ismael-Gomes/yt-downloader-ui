@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listify - YT Downloader</title> <link rel="icon" href="../img/logoListfy-transparente.png" type="image/png">
+    <link rel="apple-touch-icon" href="../img/listify-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="dark-theme"> <nav class="navbar">
+        <div class="nav-brand">
+            <img src="../img/logoListfy-transparente.png" alt="Listify Icon" class="nav-brand-icon">
+            <span>Listify</span></div>
+    </nav>
+
+    <main class="main-layout">
+        
+        <aside class="sidebar-left">
+            <div id="recent-playlists-section" class="recent-playlists-section" style="display: none;">
+                <h3 id="recent-title-header">Playlists Recentes</h3>
+                <div id="recent-playlists-container" class="recent-playlists-container">
+                    </div>
+            </div>
+        </aside>
+
+        <div class="container content-area">
+
+            <div id="search-section" class="main-content-section"> 
+                <div class="downloader-card">
+                    
+                    <form id="fetch-form" class="card-form">
+                        <div class="card-header">
+                            
+                            <img src="../img/logoListfy-transparente.png" alt="Listify Logo" class="header-logo">
+                            
+                            <h2 id="card-title-header">Baixar Playlist do YouTube</h2>
+                            <p id="card-subtitle-header">Cole a URL da playlist para carregar as músicas.</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="playlist-url" id="label-url-header">URL da Playlist:</label>
+                            <input type="text" id="playlist-url" placeholder="https://www.youtube.com/playlist?list=..." required>
+                        </div>
+                        
+                        <button type="submit" id="fetch-button" class="btn btn-primary">
+                            <span class="btn-text">Buscar Músicas</span>
+                        </button>
+                    </form>
+        
+                    <form id="download-form" class="card-form" style="display: none;">
+                        <div class="playlist-header-group">
+                            <h3 id="playlist-title"></h3>
+                            <button type="button" id="favorite-toggle-btn" class="favorite-btn" title="Adicionar aos Favoritos">
+                                 <span class="icon favorite-icon">☆</span>
+                            </button>
+                        </div>
+        
+                        <div class="form-group">
+                            <label id="label-songs-found" for="song-list-container">Músicas encontradas:</label>
+                            <div class="select-all-container">
+                                <input type="checkbox" id="select-all" checked>
+                                <label for="select-all" id="label-select-all">Selecionar todas</label>
+                            </div>
+                            <div id="song-list-container">
+                                </div>
+                        </div>
+        
+                        <fieldset class="form-group">
+                            <legend id="legend-format-header">Escolha o formato:</legend>
+                            <div class="radio-group">
+                                <label class="radio-label" for="format-mp3">
+                                    <input type="radio" id="format-mp3" name="format" value="mp3" checked>
+                                    <span>MP3 (Áudio)</span>
+                                </label>
+                                <label class="radio-label" for="format-mp4">
+                                    <input type="radio" id="format-mp4" name="format" value="mp4">
+                                    <span>MP4 (Vídeo)</span>
+                                </label>
+                            </div>
+                        </fieldset>
+        
+                        <button type="submit" id="download-button" class="btn btn-primary">
+                            <span class="btn-text">Baixar Músicas Selecionadas</span>
+                        </button>
+                    </form>
+        
+                    <div id="status-message"></div>
+                </div>
+            </div>
+
+            <div id="downloads-section" class="main-content-section" style="display: none;">
+                <div class="content-card">
+                    <h3 id="downloads-tab-title">Meus Downloads</h3>
+                    <div id="downloads-list">
+                        <p class="empty-state-message" id="downloads-empty">Nenhum download concluído ainda.</p>
+                        <p class="empty-state-message" id="downloads-loading" style="display: none;">Carregando histórico de downloads...</p>
+                        <p class="empty-state-message status-error" id="downloads-error" style="display: none;">Erro ao carregar downloads.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="favorites-section" class="main-content-section" style="display: none;">
+                <div class="content-card">
+                    <h3 id="favorites-tab-title">Playlists Favoritas (Mais Acessadas)</h3>
+                    <div id="favorites-list">
+                        <p class="empty-state-message" id="favorites-empty">Você ainda não tem playlists favoritas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings-section" class="main-content-section" style="display: none;">
+                <div class="content-card">
+                    <h3 id="config-title">Configurações</h3>
+                    
+                    <div id="settings-list">
+                        
+                        <div class="setting-group">
+                            <h4 id="config-appearance">Aparência</h4>
+                            <div class="setting-item">
+                                <label for="theme-dark" id="config-theme-label">Tema:</label>
+                                <div class="radio-group">
+                                    <label class="radio-label theme-selector" for="theme-dark">
+                                        <input type="radio" id="theme-dark" name="theme" value="dark" checked>
+                                        <span>Escuro</span>
+                                    </label>
+                                    <label class="radio-label theme-selector" for="theme-light">
+                                        <input type="radio" id="theme-light" name="theme" value="light">
+                                        <span>Claro</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <h4 id="config-defaults">Padrões de Download</h4>
+                            <div class="setting-item">
+                                <label for="default-mp3" id="config-default-format">Formato Padrão:</label>
+                                <div class="radio-group">
+                                    <label class="radio-label" for="default-mp3">
+                                        <input type="radio" id="default-mp3" name="default-format" value="mp3" checked>
+                                        <span>MP3 (Áudio)</span>
+                                    </label>
+                                    <label class="radio-label" for="default-mp4">
+                                        <input type="radio" id="default-mp4" name="default-format" value="mp4">
+                                        <span>MP4 (Vídeo)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="language-select" id="config-lang-label">Idioma:</label>
+                            <select id="language-select">
+                                <option value="pt-br">Português (BR)</option>
+                                <option value="en-us">English (US)</option>
+                            </select>
+                            <span class="setting-hint" id="config-lang-hint">O idioma afeta a interface.</span>
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="download-path" id="config-download-path-label">Pasta de Download (Local):</label>
+                            <input type="text" id="download-path" placeholder="Caminho local não configurável pelo navegador" disabled>
+                            <span class="setting-hint" id="config-download-path-hint">Configuração de pasta exige acesso ao backend.</span>
+                        </div>
+
+                        <div class="setting-group info-group">
+                            <h4 id="config-about">Sobre o YT Downloader</h4>
+                            <p class="app-info" id="app-version">Versão: 1.2.1</p>
+                            <p class="app-info" id="app-dev">Desenvolvido por: Ismael Gomes</p>
+                            <p class="app-info" id="app-stack">Rodando com Flask/Python.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <aside class="sidebar-right">
+            <div class="navigation-panel">
+                <h4 id="nav-title-header">Navegação</h4>
+                <nav>
+                    <a href="#" class="nav-item active" id="nav-search">
+                        <span class="icon">🔍</span> <span class="nav-text">Busca Rápida</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-downloads">
+                        <span class="icon">↓</span> <span class="nav-text">Downloads</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-favorites">
+                        <span class="icon">⭐</span> <span class="nav-text">Playlists Favoritas</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-settings">
+                        <span class="icon">⚙️</span> <span class="nav-text">Configurações</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>Desenvolvido por Ismael Gomes.</p>
+    </footer>
+    <script src="../js/script.js"></script>
+
+    <div id="alert-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 id="modal-title">Título do Alerta</h3>
+            <p id="modal-message">Mensagem detalhada aqui.</p>
+            <div id="modal-failures-list" style="display: none;">
+                <p><strong id="modal-failures-header">Vídeos que falharam:</strong></p>
+                <ul id="modal-failures-ul">
+                    </ul>
+            </div>
+            <button id="modal-close-btn" class="btn btn-primary">OK</button>
+        </div>
+    </div>
+
+</body>
+</html>
