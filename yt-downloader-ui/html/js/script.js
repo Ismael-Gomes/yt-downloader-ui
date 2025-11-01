@@ -278,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const cachedData = playlistCache[url];
         const lang = languageSelect.value || 'pt-br';
         if (cachedData) {
-            showStatus(translations[lang]['reset_status_loading_fav'], "success");
             fetchedVideos = cachedData.videos;
             playlistTitleEl.textContent = cachedData.title;
             populateSongList(fetchedVideos);
