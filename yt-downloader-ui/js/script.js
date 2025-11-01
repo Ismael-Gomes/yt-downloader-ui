@@ -2,9 +2,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // URLs da nossa API
-    const API_VALIDATE_URL = "http://localhost:5000/api/validate-playlist";
-    const API_DOWNLOAD_URL = "http://localhost:5000/api/download-selected";
-    const API_GET_DOWNLOADS_URL = "http://localhost:5000/api/get-downloads";
+    const API_VALIDATE_URL = "/api/validate-playlist";
+    const API_DOWNLOAD_URL = "/api/download-selected";
+    const API_GET_DOWNLOADS_URL = "/api/get-downloads";
 
     // --- Elementos do Formulário de Busca/Download ---
     const fetchForm = document.getElementById("fetch-form");
